@@ -2,6 +2,7 @@ import { CheckCircle } from "lucide-react";
 import { MetricsSection } from "@/components/metrics-section";
 import { PreviousElectionsSection } from "@/components/previous-elections-section";
 import { UpcomingElectionsSection } from "@/components/upcoming-elections-section";
+import Link from "next/link";
 
 const page = () => {
   return (
@@ -34,6 +35,12 @@ const page = () => {
             >
               Upcoming Elections
             </a>
+            <Link
+              href="app/Booth"
+              className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-sm font-medium rounded-md transition"
+            >
+              Go to Booth
+            </Link>
           </div>
         </div>
       </nav>
