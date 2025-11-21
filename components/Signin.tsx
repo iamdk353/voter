@@ -67,7 +67,7 @@ export const SignUp = () => {
     <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-xs w-full flex flex-col items-center">
         <p className="my-8 text-xl font-bold tracking-tight">
-          Sign up for Shadcn UI Blocks
+          Sign up for Vote India
         </p>
 
         <Form {...form}>

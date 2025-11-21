@@ -1,10 +1,10 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -13,9 +13,17 @@ import {
 } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const page = () => {
+const Page = () => {
+  const [voted, setVoted] = useState<boolean | null>(null);
+  const router = useRouter();
+  // Load voted state safely on client
+  useEffect(() => {
+    const stored = localStorage.getItem("voted");
+    setVoted(stored === "true");
+  }, []);
+
   return (
     <div>
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -27,36 +35,50 @@ const page = () => {
             <span className="font-bold text-lg text-foreground">VoteIndia</span>
           </div>
 
-          <Link href={"/"}>
-            <Button
-              className="bg-amber-600 hover:bg-amber-700 text-white"
-              onClick={() => {
+          <Button
+            className="bg-amber-600 hover:bg-amber-700 text-white"
+            disabled={voted === null || voted === false}
+            onClick={() => {
+              if (voted) {
+                router.push("/");
                 toast.success("Your vote has been added");
-              }}
-            >
-              Logout
-            </Button>
-          </Link>
+              } else {
+                toast.warning("You haven't voted");
+              }
+            }}
+          >
+            Logout
+          </Button>
         </div>
       </nav>
-      <VotingPanel />
+
+      <VotingPanel setParentVoted={setVoted} />
     </div>
   );
 };
-export default page;
 
-import { useEffect } from "react";
+export default Page;
 
-export function VotingPanel() {
+// =============================
+// Voting Panel Component
+// =============================
+export function VotingPanel({
+  setParentVoted,
+}: {
+  setParentVoted: (v: boolean) => void;
+}) {
   const [selectedParty, setSelectedParty] = useState<string | null>(null);
   const [voted, setVoted] = useState<boolean>(false);
 
-  // Load from localStorage on client-side only
   useEffect(() => {
     const storedParty = localStorage.getItem("selectedParty");
     const storedVoted = localStorage.getItem("voted") === "true";
+
     if (storedParty) setSelectedParty(storedParty);
-    if (storedVoted) setVoted(true);
+    if (storedVoted) {
+      setVoted(true);
+      setParentVoted(true);
+    }
   }, []);
 
   const parties = ["Party A", "Party B", "Party C", "Party D"];
@@ -65,7 +87,9 @@ export function VotingPanel() {
     if (selectedParty && !voted) {
       const beep = new Audio("/beep.mp3");
       beep.play();
+
       setVoted(true);
+      setParentVoted(true);
       localStorage.setItem("voted", "true");
       localStorage.setItem("selectedParty", selectedParty);
     }
@@ -87,7 +111,7 @@ export function VotingPanel() {
 
       <CardContent>
         <RadioGroup
-          value={selectedParty}
+          value={selectedParty || undefined}
           onValueChange={handleSelect}
           className="flex flex-col space-y-2"
         >

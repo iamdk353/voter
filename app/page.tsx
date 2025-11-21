@@ -120,13 +120,13 @@ export default function Home() {
                 </div>
                 <div className="w-full space-y-3">
                   <div className="h-2 bg-gradient-to-r from-amber-600 to-orange-600 rounded-full w-3/4"></div>
-                  <div className="h-2 bg-gradient-to-r from-green-600 to-emerald-600 rounded-full w-2/3"></div>
-                  <div className="h-2 bg-muted rounded-full w-1/2"></div>
+                  <div className="h-2 bg-muted rounded-full w-2/3"></div>
+                  <div className="h-2 bg-gradient-to-r from-green-600 to-emerald-600 rounded-full w-1/2"></div>
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </section> 
 
         {/* Features Section */}
         <section
