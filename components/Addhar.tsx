@@ -20,7 +20,7 @@ import { LucideLoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-  ADDHAR: z.string().email(),
+  AADHAAR: z.string().email(),
   name: z.string().min(8, "Name must be at least 8 characters long"),
   phoneNumber: z
     .string()
@@ -33,7 +33,7 @@ export const Addhar = () => {
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
-      ADDHAR: "",
+      AADHAAR: "",
       name: "",
       phoneNumber: "",
     },
@@ -42,7 +42,7 @@ export const Addhar = () => {
 
   // watch fields so we can enable the submit button only when all values are filled
   const [watAddhar, watName, watPhone] = form.watch([
-    "ADDHAR",
+    "AADHAAR",
     "name",
     "phoneNumber",
   ]) as [string | undefined, string | undefined, string | undefined];
@@ -59,24 +59,24 @@ export const Addhar = () => {
     <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-md w-full flex flex-col items-center">
         <p className="my-8 text-xl font-bold tracking-tight">
-          VERIFY YOUR ADDHAR TO PROCEED
+          VERIFY YOUR AADHAAR TO PROCEED
         </p>
 
         <Form {...form}>
           <form className="w-full space-y-4">
             <FormField
               control={form.control}
-              name="ADDHAR"
+              name="AADHAAR"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>ADDHAR NUMBER</FormLabel>
+                  <FormLabel>AADHAAR NUMBER</FormLabel>
                   <FormControl>
                     <Input
                       type="text"
                       maxLength={12}
                       pattern="[0-9]*"
                       inputMode="numeric"
-                      placeholder="ADDHAR NUMBER"
+                      placeholder="AADHAAR NUMBER"
                       className="w-full"
                       onInput={(e) => {
                         e.currentTarget.value = e.currentTarget.value
@@ -95,7 +95,7 @@ export const Addhar = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name As in Addhar</FormLabel>
+                  <FormLabel>Name as in AADHAAR</FormLabel>
                   <FormControl>
                     <Input
                       type="text"
@@ -113,7 +113,7 @@ export const Addhar = () => {
               name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone Number Linked Addhar</FormLabel>
+                  <FormLabel>Phone Number Linked AADHAAR</FormLabel>
                   <FormControl>
                     <Input
                       type="number"

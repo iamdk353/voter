@@ -67,7 +67,7 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center">
       <div className="max-w-xs w-full flex flex-col items-center">
         <p className="m-8 text-xl font-bold tracking-tight">
-          Log in to Shadcn UI Blocks
+          Log in to Vote India
         </p>
 
         <Form {...form}>
